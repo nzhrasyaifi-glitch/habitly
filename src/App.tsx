@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Sidebar from "./components/Sidebar";
 import Header from "./components/Header";
 import ProgressCard from "./components/ProgressCard";
@@ -15,9 +15,21 @@ const initialHabits: Habit[] = [
 ];
 
 function App() {
-  const [habits, setHabits] = useState<Habit[]>(initialHabits);
+  const [habits, setHabits] = useState<Habit[]>(() => {
+    try {
+      const savedHabits = localStorage.getItem("habitly-habits");
+      return savedHabits ? JSON.parse(savedHabits) as Habit[] : initialHabits;
+    } catch {
+      return initialHabits;
+    }
+  });
+
   const [activePage, setActivePage] = useState("Beranda");
   const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    localStorage.setItem("habitly-habits", JSON.stringify(habits));
+  }, [habits]);
 
   const completedCount = habits.filter((habit) => habit.completed).length;
   const totalCount = habits.length;
@@ -56,8 +68,7 @@ function App() {
 
   const filteredHabits = habits.filter((habit) => {
     const matchesSearch = habit.name.toLowerCase().includes(search.toLowerCase());
-    const matchesPage =
-      activePage === "Statistik" ? habit.completed : true;
+    const matchesPage = activePage === "Statistik" ? habit.completed : true;
 
     return matchesSearch && matchesPage;
   });
@@ -68,11 +79,7 @@ function App() {
 
       <main className="main-content">
         <Header
-          title={
-            activePage === "Beranda"
-              ? "Ringkasan Aktivitas"
-              : activePage
-          }
+          title={activePage === "Beranda" ? "Ringkasan Aktivitas" : activePage}
           subtitle="Bangun kebiasaan baik, mulai dari hari ini."
         />
 
