@@ -32,6 +32,7 @@ function App() {
   }, [habits]);
 
   const completedCount = habits.filter((habit) => habit.completed).length;
+  const pendingCount = habits.filter((habit) => !habit.completed).length;
   const totalCount = habits.length;
   const progress = totalCount === 0 ? 0 : Math.round((completedCount / totalCount) * 100);
 
@@ -104,6 +105,12 @@ function App() {
             value={completedCount}
             description="Kebiasaan selesai hari ini"
             icon="✓"
+          />
+          <ProgressCard
+            title="Belum Selesai"
+            value={pendingCount}
+            description="Kebiasaan yang perlu dikerjakan"
+            icon="○"
           />
           <ProgressCard
             title="Progres Harian"
