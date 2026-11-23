@@ -18,6 +18,7 @@ type HabitListProps = {
 
 function HabitList({ habits, onToggle, onDelete }: HabitListProps) {
   const [selectedCategory, setSelectedCategory] = useState("Semua");
+  const [sortOrder, setSortOrder] = useState("az");
 
   const categories = [
     "Semua",
@@ -28,6 +29,12 @@ function HabitList({ habits, onToggle, onDelete }: HabitListProps) {
     selectedCategory === "Semua"
       ? habits
       : habits.filter((habit) => habit.category === selectedCategory);
+
+  const sortedHabits = [...filteredHabits].sort((a, b) => {
+    return sortOrder === "az"
+      ? a.name.localeCompare(b.name)
+      : b.name.localeCompare(a.name);
+  });
 
   if (habits.length === 0) {
     return (
@@ -54,16 +61,26 @@ function HabitList({ habits, onToggle, onDelete }: HabitListProps) {
             </option>
           ))}
         </select>
+
+        <label htmlFor="sort-select">Urutkan: </label>
+        <select
+          id="sort-select"
+          value={sortOrder}
+          onChange={(event) => setSortOrder(event.target.value)}
+        >
+          <option value="az">Nama A–Z</option>
+          <option value="za">Nama Z–A</option>
+        </select>
       </div>
 
-      {filteredHabits.length === 0 ? (
+      {sortedHabits.length === 0 ? (
         <div className="empty-state">
           <h3>Kebiasaan tidak ditemukan</h3>
           <p>Belum ada kebiasaan dalam kategori ini.</p>
         </div>
       ) : (
         <div className="habit-list">
-          {filteredHabits.map((habit) => (
+          {sortedHabits.map((habit) => (
             <HabitCard
               key={habit.id}
               {...habit}
