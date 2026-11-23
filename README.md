@@ -1,32 +1,75 @@
-# React + TypeScript + Vite
+# Habitly – Aplikasi Pencatat Kebiasaan
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+## Tentang Aplikasi
 
-Currently, two official plugins are available:
+Habitly merupakan aplikasi pencatat kebiasaan harian yang dibuat menggunakan React dan TypeScript. Aplikasi ini membantu pengguna mengatur, mencatat, dan memantau kebiasaan sehari-hari agar lebih teratur dan konsisten.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Fitur Aplikasi
 
-## React Compiler
+1. **Menambahkan Kebiasaan** – Pengguna dapat menambahkan kebiasaan baru.
+2. **Daftar Kebiasaan** – Menampilkan kebiasaan yang telah dibuat.
+3. **Menandai Kebiasaan Selesai** – Pengguna dapat menandai kebiasaan yang sudah dilakukan.
+4. **Menghapus Kebiasaan** – Pengguna dapat menghapus kebiasaan yang tidak diperlukan.
+5. **Pencarian Kebiasaan** – Memudahkan pengguna mencari kebiasaan tertentu.
+6. **Statistik Progres** – Menampilkan perkembangan kebiasaan pengguna.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Teknologi yang Digunakan
 
-## Expanding the Oxlint configuration
+- **React** – Digunakan untuk membangun tampilan aplikasi menggunakan komponen.
+- **TypeScript** – Digunakan untuk mengatur tipe data agar kode lebih terstruktur.
+- **Vite** – Digunakan sebagai alat pengembangan aplikasi.
+- **CSS** – Digunakan untuk mengatur desain dan tampilan aplikasi.
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+## Komponen React yang Dibuat
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
-```
+Aplikasi Habitly memiliki beberapa komponen, yaitu:
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+- **Sidebar:** Menampilkan menu navigasi aplikasi.
+- **Header:** Menampilkan bagian atas halaman.
+- **ProgressCard:** Menampilkan ringkasan perkembangan kebiasaan.
+- **HabitForm:** Menyediakan formulir untuk menambahkan kebiasaan.
+- **HabitList:** Menampilkan daftar kebiasaan pengguna.
+- **HabitCard:** Menampilkan informasi setiap kebiasaan beserta tindakan yang dapat dilakukan.
+
+## Penggunaan Props, State, dan Event Handling
+
+### 1. Props
+
+Props digunakan untuk mengirimkan data dan fungsi dari komponen induk ke komponen anak. Contohnya, komponen HabitCard menerima informasi kebiasaan serta fungsi untuk menandai kebiasaan selesai dan menghapusnya.
+
+### 2. State
+
+State digunakan untuk menyimpan dan mengelola data yang dapat berubah selama aplikasi digunakan. Pada Habitly, state digunakan untuk menyimpan daftar kebiasaan, status penyelesaian, dan kata kunci pencarian. Pengelolaan state menggunakan `useState` dari React.
+
+### 3. Event Handling
+
+Event handling digunakan untuk menangani tindakan pengguna ketika berinteraksi dengan aplikasi, seperti menambahkan kebiasaan, menandai kebiasaan selesai, menghapus kebiasaan, dan melakukan pencarian.
+
+## Cara Menjalankan Aplikasi
+
+1. Pastikan Node.js sudah terpasang.
+2. Clone atau unduh repository Habitly.
+3. Buka folder proyek menggunakan Visual Studio Code.
+4. Buka terminal dan jalankan perintah:
+
+   ```bash
+   npm install
+   ```
+
+5. Jalankan aplikasi menggunakan perintah:
+
+   ```bash
+   npm run dev
+   ```
+
+6. Buka alamat lokal yang muncul pada terminal.
+
+## Link Aplikasi
+
+https://habitly-nadhifazahra.vercel.app/
+
+## Pengembang
+
+**Nadhifa Zahra Syaifi**
+
+Proyek ini dibuat untuk memenuhi tugas mata kuliah Pengembangan Aplikasi Web.
