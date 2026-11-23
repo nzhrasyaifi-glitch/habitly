@@ -1,4 +1,5 @@
 
+import { useState } from "react";
 import HabitCard from "./HabitCard";
 
 export type Habit = {
@@ -16,6 +17,18 @@ type HabitListProps = {
 };
 
 function HabitList({ habits, onToggle, onDelete }: HabitListProps) {
+  const [selectedCategory, setSelectedCategory] = useState("Semua");
+
+  const categories = [
+    "Semua",
+    ...new Set(habits.map((habit) => habit.category)),
+  ];
+
+  const filteredHabits =
+    selectedCategory === "Semua"
+      ? habits
+      : habits.filter((habit) => habit.category === selectedCategory);
+
   if (habits.length === 0) {
     return (
       <div className="empty-state">
@@ -27,16 +40,40 @@ function HabitList({ habits, onToggle, onDelete }: HabitListProps) {
   }
 
   return (
-    <div className="habit-list">
-      {habits.map((habit) => (
-        <HabitCard
-          key={habit.id}
-          {...habit}
-          onToggle={onToggle}
-          onDelete={onDelete}
-        />
-      ))}
-    </div>
+    <>
+      <div className="category-filter">
+        <label htmlFor="category-select">Filter kategori: </label>
+        <select
+          id="category-select"
+          value={selectedCategory}
+          onChange={(event) => setSelectedCategory(event.target.value)}
+        >
+          {categories.map((category) => (
+            <option key={category} value={category}>
+              {category}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {filteredHabits.length === 0 ? (
+        <div className="empty-state">
+          <h3>Kebiasaan tidak ditemukan</h3>
+          <p>Belum ada kebiasaan dalam kategori ini.</p>
+        </div>
+      ) : (
+        <div className="habit-list">
+          {filteredHabits.map((habit) => (
+            <HabitCard
+              key={habit.id}
+              {...habit}
+              onToggle={onToggle}
+              onDelete={onDelete}
+            />
+          ))}
+        </div>
+      )}
+    </>
   );
 }
 
