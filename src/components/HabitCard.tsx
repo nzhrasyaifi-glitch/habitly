@@ -17,6 +17,16 @@ function HabitCard({
   onToggle,
   onDelete,
 }: HabitCardProps) {
+  const handleDelete = () => {
+    const confirmed = window.confirm(
+      `Apakah kamu yakin ingin menghapus kebiasaan "${name}"?`
+    );
+
+    if (confirmed) {
+      onDelete(id);
+    }
+  };
+
   return (
     <div className={`habit-card ${completed ? "completed" : ""}`}>
       <div className="habit-icon">
@@ -37,7 +47,7 @@ function HabitCard({
 
       <button
         className="delete-button"
-        onClick={() => onDelete(id)}
+        onClick={handleDelete}
         aria-label={`Hapus ${name}`}
       >
         ×
